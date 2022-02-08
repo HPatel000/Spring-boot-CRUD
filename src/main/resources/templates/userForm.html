@@ -13,28 +13,43 @@
     <title>User Management | add user</title>
   </head>
   <body>
-    <div class="container">
-      <h1>Add User</h1>
+    <div class="container mt-5">
+      <div class="row">
+        <div
+          class="col-lg-6 col-md-8 col-sm-10 container justify-content-center card p-5"
+        >
+          <h1 class="text-center">Add User</h1>
+          <div class="card-body">
+            <form th:action="@{/users/add}" method="post" th:object="${user}">
+              <div class="form-group">
+                <label for="username" class="form-label"
+                  >Username:
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="username"
+                    th:field="*{username}"
+                /></label>
+              </div>
+              <br /><br />
+              <div class="form-group">
+                <label for="email" class="form-label"
+                  >Email:
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    th:field="*{email}" /></label
+                ><br /><br />
+              </div>
+              <div class="box-footer">
+                <input type="submit" class="btn btn-dark" value="Add user" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       <br />
-      <form th:action="@{/users/add}" method="post" th:object="${user}">
-        <label for="username" class="form-label"
-          >Username:
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            th:field="*{username}" /></label
-        ><br /><br />
-        <label for="email" class="form-label"
-          >Email:
-          <input
-            type="email"
-            class="form-control"
-            name="email"
-            th:field="*{email}" /></label
-        ><br /><br />
-        <input type="submit" class="btn btn-dark" value="Add user" />
-      </form>
     </div>
   </body>
 </html>

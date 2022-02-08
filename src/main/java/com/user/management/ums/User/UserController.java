@@ -1,14 +1,11 @@
 package com.user.management.ums.User;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -71,6 +68,15 @@ public class UserController {
   public ModelAndView updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long userId) {
 
     userService.updateUser(user, userId);
+
+    ModelAndView mv = new ModelAndView("redirect:/users");
+
+    return mv;
+  }
+
+  @GetMapping("/users/delete/{id}")
+  public ModelAndView deleteUser(@PathVariable("id") Long userId) {
+    userService.deleteUser(userId);
 
     ModelAndView mv = new ModelAndView("redirect:/users");
 
