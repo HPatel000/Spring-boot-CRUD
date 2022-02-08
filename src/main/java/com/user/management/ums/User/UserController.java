@@ -3,6 +3,7 @@ package com.user.management.ums.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,27 +30,56 @@ public class UserController {
     return mv;
   }
 
-  @GetMapping("/adduser")
+  
+  @GetMapping("/users/add")
   public ModelAndView addUserForm() {
-    ModelAndView mv = new ModelAndView();
-
+    
     // create user object to hold user form data
     User user = new User();
-
-    mv.addObject("user", user);
+    
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("user", user);;
+    
     mv.setViewName("userForm");
     return mv;
   }
-  
-  @PostMapping(value="/users")
+
+  @PostMapping(value="/users/add")
   public ModelAndView addNewUser(@ModelAttribute("user") User user) {
 
     userService.saveUser(user);
 
     ModelAndView mv = new ModelAndView("redirect:/users");
-      
-      return mv;
+
+    return mv;
   }
+
+  
+  @GetMapping("/users/update/{id}")
+  public ModelAndView updateUserForm(@PathVariable("id") Long userId) {
+
+    User user = userService.getUserById(userId);
+
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("user", user);
+
+    mv.setViewName("updateUser");
+    return mv;
+  }
+  
+  @PostMapping("/users/update/{id}")
+  public ModelAndView updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long userId) {
+
+    userService.updateUser(user, userId);
+
+    ModelAndView mv = new ModelAndView("redirect:/users");
+
+    return mv;
+  }
+  
+
+  
+
   
   
   
